@@ -55,8 +55,11 @@ model User {
   emailVerified DateTime? @map("email_verified")
   image         String?
   role          Role      @default(USER)
-  accounts      Account[]
-  sessions      Session[]
+  username      String?   @unique
+  createdAt     DateTime  @default(now()) @map("created_at")
+
+  accounts Account[]
+  sessions Session[]
 
   @@map("users")
 }
@@ -69,3 +72,5 @@ model VerificationToken {
   @@unique([identifier, token])
   @@map("verification_tokens")
 }
+
+// Models
