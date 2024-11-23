@@ -1,13 +1,14 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input"; // Assuming Input is available in your ShadCN UI library
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation"; // Use Next.js router for redirection
 
 export default function AgeConfirmation() {
     const [dob, setDob] = useState(""); 
     const [isOldEnough, setIsOldEnough] = useState<boolean | null>(null); // Whether the user is old enough
     const [ageConfirmed, setAgeConfirmed] = useState(false);
+    const router = useRouter(); // Initialize the router for redirection
 
     const handleDobChange = (e: any) => {
         setDob(e.target.value); // Update date of birth
@@ -20,13 +21,24 @@ export default function AgeConfirmation() {
         const month = currentDate.getMonth() - birthDate.getMonth();
 
         if (month < 0 || (month === 0 && currentDate.getDate() < birthDate.getDate())) {
-            setIsOldEnough(age - 1 >= 13);
+            setIsOldEnough(age - 1 >= 13); // Check if the user is at least 13 years old
         } else {
-            setIsOldEnough(age >= 13);
+            setIsOldEnough(age >= 13); // Check if the user is at least 13 years old
         }
 
         setAgeConfirmed(true); // Set age confirmed to true
     };
+
+    // Use effect to handle redirection after a 2-second delay
+    useEffect(() => {
+        if (ageConfirmed && isOldEnough) {
+            const timer = setTimeout(() => {
+                router.push("/choice-username"); // Redirect to /choice-username after 2 seconds
+            }, 2000);
+
+            return () => clearTimeout(timer); // Cleanup the timer on component unmount
+        }
+    }, [ageConfirmed, isOldEnough, router]);
 
     return (
         <div className="h-screen flex flex-col justify-center items-center p-4 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500">
@@ -38,21 +50,19 @@ export default function AgeConfirmation() {
 
             {ageConfirmed ? (
                 <div className="text-white text-xl text-center">
-                    {isOldEnough
-                        ? <>
-                            <p>Thank you for confirming your age! You are eligible</p>
-                            {
-                                setInterval(() => {
-                                    redirect("/choice-username");
-                                }, 2000)
-                            }
-                        </>
-                        : "Sorry, you must be at least 18 years old to proceed."}
+                    {isOldEnough ? (
+                        <div>
+                            <p>Thank you for confirming your age! You are eligible.</p>
+                            <p className="text-sm text-gray-200 mt-2">Redirecting...</p>
+                        </div>
+                    ) : (
+                        <p>Sorry, you must be at least 13 years old to proceed.</p>
+                    )}
                 </div>
             ) : (
                 <>
                     <div className="text-white text-lg mb-4 text-center">
-                        Please confirm that you are age to continue.
+                        Please confirm that you are old enough to continue.
                     </div>
                     <Input
                         type="date"

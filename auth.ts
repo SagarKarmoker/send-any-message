@@ -1,6 +1,39 @@
+import { PrismaAdapter } from "@auth/prisma-adapter"
 import NextAuth from "next-auth"
-import Facebook from "next-auth/providers/facebook"
+import Google from "next-auth/providers/google"
+import { prisma } from "./prisma"
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-    providers: [Facebook],
+    adapter: PrismaAdapter(prisma),
+    session: {
+        strategy: "jwt",
+    },
+    providers: [Google],
+    callbacks: {
+        async jwt({ token, user }) {
+            if (user) {
+                const dbUser = await prisma.user.findUnique({
+                    where: {
+                        email: user.email as string
+                    }
+                })
+
+                if (dbUser) {
+                    token.id = dbUser.id
+                    token.role = dbUser.role
+                }
+            }
+
+            return token;
+        },
+
+        async session({ session, token }) {
+            if (token) {
+                session.user.role = token.role
+                session.user.id = token.id
+            }
+
+            return session;
+        }
+    }
 })
