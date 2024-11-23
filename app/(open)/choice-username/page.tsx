@@ -8,11 +8,11 @@ export default function ChoiceUsername() {
     const [username, setUsername] = useState("");
     const [isSubmitted, setIsSubmitted] = useState(false);
 
-    const handleUsernameChange = (e) => {
+    const handleUsernameChange = (e : any) => {
         setUsername(e.target.value);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e : any) => {
         e.preventDefault();
         if (username.length < 3) {
             alert("Username must be at least 3 characters long.");

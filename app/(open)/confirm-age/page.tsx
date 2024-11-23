@@ -6,10 +6,10 @@ import { redirect } from "next/navigation";
 
 export default function AgeConfirmation() {
     const [dob, setDob] = useState(""); 
-    const [isOldEnough, setIsOldEnough] = useState(null); // Whether the user is old enough
+    const [isOldEnough, setIsOldEnough] = useState<boolean | null>(null); // Whether the user is old enough
     const [ageConfirmed, setAgeConfirmed] = useState(false);
 
-    const handleDobChange = (e) => {
+    const handleDobChange = (e: any) => {
         setDob(e.target.value); // Update date of birth
     };
 
