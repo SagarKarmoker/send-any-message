@@ -21,6 +21,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                 if (dbUser) {
                     token.id = dbUser.id
                     token.role = dbUser.role
+                    token.username = dbUser.username || ""
                 }
             }
 
@@ -31,6 +32,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             if (token) {
                 session.user.role = token.role
                 session.user.id = token.id
+                session.user.username = token.username
             }
 
             return session;
