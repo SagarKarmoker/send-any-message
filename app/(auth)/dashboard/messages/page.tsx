@@ -51,21 +51,7 @@ export default function Messages() {
                         key={message.id}
                         className="flex items-start space-x-4 bg-gray-100 p-4 rounded-lg shadow-md"
                     >
-                        {/* Avatar and Username */}
-                        <div className="flex-shrink-0">
-                            <img
-                                src={message.user.image || '/default-avatar.jpg'}
-                                alt={message.user.username}
-                                className="w-12 h-12 rounded-full object-cover"
-                            />
-                        </div>
-                        <div className="flex-1">
-                            <div className="font-semibold text-gray-900">{message.user.username}</div>
-                            <div className="text-gray-700">{message.msg}</div>
-                            <div className="text-xs text-gray-500 mt-1">
-                                {new Date(message.createdAt).toLocaleString()}
-                            </div>
-                        </div>
+                        <p>{message.msg}</p>
                     </div>
                 ))}
             </div>
