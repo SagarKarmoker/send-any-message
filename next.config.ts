@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+// @ts-check
 
 const nextConfig: NextConfig = {
   typescript: {
