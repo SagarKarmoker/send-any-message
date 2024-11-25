@@ -2,7 +2,7 @@
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import React from 'react';
-import Messages from './messages/page';
+import Messages from '../../pages/Messages';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Account from '@/app/pages/Account';
 

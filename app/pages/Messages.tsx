@@ -1,6 +1,9 @@
 "use client"
 import api from '@/app/utils/Axios'
 import React, { useEffect, useState } from 'react'
+import { MessageCircleMore } from 'lucide-react';
+import Link from 'next/link';
+
 
 interface Message {
     id: string
@@ -47,12 +50,13 @@ export default function Messages() {
             <h1 className="text-3xl font-semibold text-center text-gray-800 mb-6">Messages</h1>
             <div className="space-y-4">
                 {messages.map((message) => (
-                    <div
+                    <Link
+                        href={`dashboard/${message.id}`}
                         key={message.id}
                         className="flex items-start space-x-4 bg-gray-100 p-4 rounded-lg shadow-md"
                     >
-                        <p>{message.msg}</p>
-                    </div>
+                        <div className='flex gap-4 justify-center items-center'><MessageCircleMore /> {message.msg}</div>
+                    </Link>
                 ))}
             </div>
         </div>
