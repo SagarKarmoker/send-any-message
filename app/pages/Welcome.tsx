@@ -13,8 +13,8 @@ export default function WelcomePage() {
             </Link>
             <p className="text-center text-sm sm:text-base text-white">
                 By continuing, you agree to our{" "}
-                <span className="underline">Terms of Use</span> and have read and agreed
-                to our <span className="underline">Privacy Policy</span>
+                <Link href="/terms-condition" className="underline">Terms of Use</Link> and have read and agreed
+                to our <Link href="/privacy-policy" className="underline">Privacy Policy</Link>
             </p>
         </div>
     );

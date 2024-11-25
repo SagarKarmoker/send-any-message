@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { signIn, useSession } from "next-auth/react";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 
 
@@ -21,6 +22,8 @@ export default function SignIn() {
             <h1 className="text-4xl sm:text-5xl font-bold text-white mb-6 text-center">
                 Welcome to Our Platform
             </h1>
+            <h3 className="text-6xl sm:text-4xl font-bold text-white text-center">SAM</h3>
+            <p className="text-white mb-6">Send Any Message</p>
             <p className="text-lg text-white mb-8 text-center">
                 Please sign in to continue.
             </p>
@@ -43,8 +46,8 @@ export default function SignIn() {
             }
             <p className="text-white mt-6 text-sm">
                 By signing in, you agree to our{" "}
-                <span className="underline cursor-pointer">Terms of Service</span> and{" "}
-                <span className="underline cursor-pointer">Privacy Policy</span>.
+                <Link href="/terms-condition" className="underline cursor-pointer">Terms of Service</Link> and{" "}
+                <Link href="/privacy-policy" className="underline cursor-pointer">Privacy Policy</Link>.
             </p>
         </div>
     );
